@@ -1,0 +1,90 @@
+import java.util.*;
+class Node{
+    int data;
+    Node left;
+    Node right;
+    Node(int val)
+    {
+        this.data=val;
+        this.left=null;
+        this.right=null;
+    }
+}
+class BinaryTree{
+    Node root;
+    BinaryTree()
+    {
+        root=null;
+    }
+    void buildTree(){
+        Scanner sc=new Scanner(System.in);
+        String s= sc.nextLine();
+        String arr[]=s.split(" ");
+        Queue<Node> q=new LinkedList<>();
+        root=new Node(Integer.parseInt(arr[0]));
+        int i=1;
+        q.add(root);
+        while(!q.isEmpty())
+        {
+            Node temp=q.peek();
+            q.remove();
+            int data=-1;
+            if(i<arr.length){
+                data=Integer.parseInt(arr[i]);
+            };
+            if(data!=-1)
+            {
+                temp.left=new Node(data);
+                q.add(temp.left);
+            }
+            i++;
+            data=-1;
+            if(i<arr.length){
+                data=Integer.parseInt(arr[i]);
+            };
+            if(data!=-1)
+            {
+                temp.right=new Node(data);
+                q.add(temp.right);
+            }
+            i++;
+        }
+    }
+    void printLvlOrder()
+    {
+        Queue<Node> q=new LinkedList<>();
+        q.add(root);
+        q.add(null);
+        while(!q.isEmpty())
+        {
+            Node temp=q.peek();
+            q.remove();
+            if(temp==null)
+            {
+                System.out.println();
+                if(q.size()>0)
+                {
+                    q.add(null);
+                }
+            }
+            else{
+                System.out.print(temp.data+" ");
+                if(temp.left!=null)
+                {
+                    q.add(temp.left);
+                }
+                if(temp.right!=null)
+                {
+                    q.add(temp.right);
+                }
+            }
+        }
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        BinaryTree b=new BinaryTree();
+        b.buildTree();
+        b.printLvlOrder();
+    }
+}
